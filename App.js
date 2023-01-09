@@ -1,29 +1,28 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import DemoComp from './components/DemoComp';
+import React, { useState } from 'react';
+import { View, Text, TextInput, Button } from 'react-native';
 
-export default function App() {
+export default App = () => {
+
+  const [hoTen, sethoTen] = useState("ABC");
+  
+  const CapNhat = (dulieu)=>{
+      sethoTen( dulieu );
+  }
+  const VietHoa = ()=>{
+      sethoTen (   hoTen.toUpperCase()  );
+  }
   return (
-    <View style={styles.container}>
-      <Text>Hello</Text>
-      <StatusBar style="auto" />
+    <View style={{ padding: 50 }}>
+      <Text style={{ fontSize: 20, color: "blue" }}>
+        Ho ten:  {hoTen}
+      </Text>
 
-      <DemoComp />
-      <DemoComp />
-      <DemoComp />
-      <DemoComp />
-      <DemoComp />
-      <DemoComp />
-      
+      <TextInput placeholder='Nhap ho ten'
+          onChangeText={CapNhat} />
+
+      <Button title='Viết hoa' onPress={VietHoa} />
+
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'green',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
