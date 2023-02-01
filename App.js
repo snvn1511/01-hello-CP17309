@@ -12,6 +12,7 @@ const getListSP = () => {
     .then((dulieu_json) => {
       console.log(dulieu_json); // đối tượng dạng json
       alert("Kết quả: " + JSON.stringify(dulieu_json));
+      // gán dữ liệu vào state ở đây ,,,,, 
     })
     .catch((err) => {
       console.log(err);
@@ -19,11 +20,37 @@ const getListSP = () => {
 
 }
 
+// thêm mới dữ liệu:
+const postAddSP = () => {
+  //1. Chuẩn bị dữ liệu
+  let objSP = { name: "Điện thoại gì đó", price: 3333333 };
+  // giá trị các thuộc tính có thể lấy từ state của TextInput
+  //2. Dùng fetch để post dữ liệu
+  fetch(api_url, {
+    method: 'POST',// thêm mới: POST, sửa: PUT, xóa: DELETE
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(objSP)
+  })
+    .then((res) => {
+      console.log(res);
+      if (res.status == 201)
+        alert("Thêm thành công");
+    })
+    .catch( (err)=>{ console.log(err);  })
+    ;
+
+}
+
 const DemoApp = () => {
   return (
     <View>
       <View style={{ margin: 20 }} />
-      <Button title='Get list'  onPress={getListSP} />
+      <Button title='Get list' onPress={getListSP} />
+      <View style={{ margin: 20 }} />
+      <Button title='Add new SP' onPress={postAddSP} />
     </View>
   )
 }
