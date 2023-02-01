@@ -1,34 +1,44 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
+import * as React from 'react';
 
-const CompInfo = (props)=>{
-    props.goiCha ("xxxxxxxxxxxxxx");// gửi dữ liệu sang comp cha
-
-    return (
-      <View>
-        <Text>Ho ten: {props.hoTen} {"\n"} tuoi = {props.tuoi}
-        </Text>
-      </View>
-    );
-} 
-
-export default App = () => {
-
-  const [duLieuCon1, setduLieuCon1] = useState("");
-  const callback_CompCon1 = ( data_con )=>{
-        setduLieuCon1 (data_con );
-  }
+import { Button, ScrollView, Text, TextInput, View, StyleSheet, TouchableHighlight } from 'react-native';
+  
+// Bước 1: Khai báo mảng
  
+let duLieu = [
+  {name:'dien thoai', price: 30},
+  {name:'tivi', price: 30},
+  {name:'maytinh', price: 30}
+ 
+]
+
+// Bước 2: Tạo component
+const ItemDulieu = (props)=>{
+  // console.log(props);
   return (
-    <View style={{ padding: 50 }}>
-      
-        <Text> Du lieu con = {duLieuCon1}  </Text>
-
-      <CompInfo hoTen="Nguyen van A" tuoi="20"
-       goiCha={callback_CompCon1}  />
-        
-
+    <View style={ {backgroundColor:'cyan', padding:10, margin:10}}>
+      <Text>Name: {props.name} -- price: {props.price}</Text>
     </View>
   );
 }
 
+
+// Bước 3: Hiển thị danh sách
+
+const DemoApp = () => {
+ 
+  return (
+    <View> 
+        <View style={{margin:20}} />
+        <ScrollView style={{height:'100%', backgroundColor:"yellow"}}>
+        {
+            duLieu.map( (item, index, arr)=>{
+              // console.log(item);
+              return <ItemDulieu key={index} name={item.name} price={item.price} />
+            })
+        }
+        </ScrollView>
+    </View>
+  )
+}
+
+export default DemoApp;
