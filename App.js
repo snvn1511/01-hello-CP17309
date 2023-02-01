@@ -1,42 +1,29 @@
 import * as React from 'react';
 
-import { Button, ScrollView, Text, TextInput, View, StyleSheet, TouchableHighlight } from 'react-native';
-  
-// Bước 1: Khai báo mảng
- 
-let duLieu = [
-  {name:'dien thoai', price: 30},
-  {name:'tivi', price: 30},
-  {name:'maytinh', price: 30}
- 
-]
+import { Button, View } from 'react-native';
+// Demo lấy danh sách sản phẩm
+var api_url = "https://63da3789b28a3148f68161a2.mockapi.io/demo-api/sanpham";
 
-// Bước 2: Tạo component
-const ItemDulieu = (props)=>{
-  // console.log(props);
-  return (
-    <View style={ {backgroundColor:'cyan', padding:10, margin:10}}>
-      <Text>Name: {props.name} -- price: {props.price}</Text>
-    </View>
-  );
+const getListSP = () => {
+  fetch(api_url)
+    .then((res) => {
+      return res.json();  // chuyển đổi dữ liệu về dạng json
+    })
+    .then((dulieu_json) => {
+      console.log(dulieu_json); // đối tượng dạng json
+      alert("Kết quả: " + JSON.stringify(dulieu_json));
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
 }
 
-
-// Bước 3: Hiển thị danh sách
-
 const DemoApp = () => {
- 
   return (
-    <View> 
-        <View style={{margin:20}} />
-        <ScrollView style={{height:'100%', backgroundColor:"yellow"}}>
-        {
-            duLieu.map( (item, index, arr)=>{
-              // console.log(item);
-              return <ItemDulieu key={index} name={item.name} price={item.price} />
-            })
-        }
-        </ScrollView>
+    <View>
+      <View style={{ margin: 20 }} />
+      <Button title='Get list'  onPress={getListSP} />
     </View>
   )
 }
